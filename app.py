@@ -1,7 +1,10 @@
 import gspread
+import tkinter
 from google.auth import exceptions
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
+
+top = tkinter.Tk()
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -35,6 +38,5 @@ def main():
     worksheet.append_row(new_row)
 
     print("New row added successfully!")
-
-if __name__ == '__main__':
-    main()
+    
+top.mainloop()
