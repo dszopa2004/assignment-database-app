@@ -3,6 +3,7 @@ import tkinter as tk
 from google.auth import exceptions
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
+from gspread_formatting import *
 
 frm = tk.Tk()
 frm.geometry('400x200')
@@ -19,6 +20,15 @@ def store_input():
     course = course_name.get("1.0", "end-1c")
     hw = hw_details.get("1.0", "end-1c")
     date = due_date.get("1.0", "end-1c")
+
+
+def add_checkbox_validation(worksheet, row):
+    target_range_of_cells = f'D{row}:D{row}'
+    validation_rule = DataValidationRule(
+        BooleanCondition('BOOLEAN', []),
+        showCustomUi=True
+    )
+    set_data_validation_for_cell_range(worksheet, target_range_of_cells, validation_rule)
 
 
 def authenticate():
@@ -47,6 +57,8 @@ def main():
 
     new_row = [course, hw, date]
     worksheet.append_row(new_row)
+
+    add_checkbox_validation(worksheet, new_row)
 
     print("New row added successfully!")
     
