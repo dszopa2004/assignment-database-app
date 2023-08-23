@@ -12,6 +12,15 @@ SCOPES = [
     'https://www.googleapis.com/auth/drive',
 ]
 
+# This function stores the data that the user inputs
+# into variables, which then gets pushed to the spreadsheet
+def store_input():
+    global course, hw, date 
+    course = course_name.get("1.0", "end-1c")
+    hw = hw_details.get("1.0", "end-1c")
+    date = due_date.get("1.0", "end-1c")
+
+
 def authenticate():
     creds = None
     token_file = 'token.json'  # Change this to your preferred token file name
@@ -28,6 +37,7 @@ def authenticate():
             token.write(creds.to_json())
     return creds
 
+
 def main():
     creds = authenticate()
 
@@ -35,13 +45,13 @@ def main():
     spreadsheet = client.open('test-sheet')
     worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
 
-    new_row = ["Data5", "Data6", "Data7"]
+    new_row = [course, hw, date]
     worksheet.append_row(new_row)
 
     print("New row added successfully!")
     
 
-B = tk.Button(frm, text ="Add to Spreadsheet", command = main)
+B = tk.Button(frm, text ="Add to Spreadsheet", command=lambda: [store_input(), main()])
 course_name = tk.Text(frm, height = 1,width = 10)
 hw_details = tk.Text(frm, height = 1,width = 10)
 due_date = tk.Text(frm, height = 1,width = 10)
