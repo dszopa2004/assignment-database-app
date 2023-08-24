@@ -6,7 +6,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
 
 frm = tk.Tk()
-frm.geometry('400x200')
+frm.geometry('350x200')
+frm.title("Assignment Manager")
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -22,6 +23,8 @@ def store_input():
     date = due_date.get("1.0", "end-1c")
 
 
+# This function adds a checkbox to the end of 
+# the assignment row
 def add_checkbox_validation(worksheet, row):
     target_range_of_cells = f'D{row}:D{row}'
     validation_rule = DataValidationRule(
@@ -35,7 +38,8 @@ def authenticate():
     creds = None
     token_file = 'token.json'  # Change this to your preferred token file name
 
-    # The file token.json stores the user's access and refresh tokens, and is created automatically when the authorization flow completes for the first time.
+    # The file token.json stores the user's access and refresh tokens, 
+    # and is created automatically when the authorization flow completes for the first time.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
