@@ -10,14 +10,15 @@ get_working_dir = os.getcwd()
 
 frm = tk.Tk()
 style = ttk.Style(frm)
-frm.geometry('350x200')
+frm.geometry('350x175')
 frm.title("Assignment Manager")
 frm.resizable(False, False)
 p1 = tk.PhotoImage(file = 'icon_image.png')
 frm.iconphoto(True, p1)
 
-frm.tk.call('source', get_working_dir + r'\breeze-dark\breeze-dark.tcl')  # Put here the path of your theme file
-style.theme_use('breeze-dark')  # Theme files create a ttk theme, here you can put its name
+# Path to theme, including the images
+frm.tk.call('source', get_working_dir + r'\breeze-dark\breeze-dark.tcl')  
+style.theme_use('breeze-dark')  # Theme name
 
 frm.columnconfigure(0, weight=2)
 frm.columnconfigure(1, weight=2)
@@ -30,6 +31,9 @@ SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive',
 ]
+
+######### FUNCTIONS #########
+######### FUNCTIONS #########
 
 # This function stores the data that the user inputs
 # into variables, which then gets pushed to the spreadsheet
@@ -49,7 +53,7 @@ def add_checkbox_validation(worksheet, row):
     )
     set_data_validation_for_cell_range(worksheet, target_range_of_cells, validation_rule)
 
-
+# Default authentication function from Google Sheet API
 def authenticate():
     creds = None
     token_file = 'token.json'  # Change this to your preferred token file name
@@ -82,13 +86,15 @@ def main():
 
     print("New row added successfully!")
     
+######### FUNCTIONS #########
+######### FUNCTIONS #########
 
-B = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
+btn_add = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
 course_name = tk.Text(frm, height = 1,width = 15)
 hw_details = tk.Text(frm, height = 1,width = 15)
 due_date = tk.Text(frm, height = 1,width = 15)
 
-B.grid(row=1, column=1, pady=2)
+btn_add.grid(row=1, column=1, pady=2)
 course_name.grid(row=0, column=0, padx=1)
 hw_details.grid(row=0, column=1, padx=1)
 due_date.grid(row=0, column=2, padx=1)
