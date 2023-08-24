@@ -6,7 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
 
 frm = tk.Tk()
-frm.geometry('350x200')
+frm.geometry('315x200')
 frm.title("Assignment Manager")
 
 SCOPES = [
@@ -23,8 +23,7 @@ def store_input():
     date = due_date.get("1.0", "end-1c")
 
 
-# This function adds a checkbox to the end of 
-# the assignment row
+# This function adds checkboxes to the 'D' row
 def add_checkbox_validation(worksheet, row):
     target_range_of_cells = f'D{row}:D{row}'
     validation_rule = DataValidationRule(
