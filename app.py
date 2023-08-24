@@ -12,6 +12,7 @@ frm = tk.Tk()
 style = ttk.Style(frm)
 frm.geometry('350x200')
 frm.title("Assignment Manager")
+frm.resizable(False, False)
 p1 = tk.PhotoImage(file = 'icon_image.png')
 frm.iconphoto(True, p1)
 
