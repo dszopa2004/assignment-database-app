@@ -1,13 +1,19 @@
 import gspread
 import tkinter as tk
+from tkinter import ttk
 from google.auth import exceptions
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
 
 frm = tk.Tk()
+style = ttk.Style(frm)
 frm.geometry('315x200')
 frm.title("Assignment Manager")
+
+frm.tk.call('source', 'D:/assignment-database-app/breeze-dark/breeze-dark.tcl')  # Put here the path of your theme file
+style.theme_use('breeze-dark')  # Theme files create a ttk theme, here you can put its name
+
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
