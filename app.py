@@ -6,14 +6,16 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
 
-theme_dir = os.getcwd()
+get_working_dir = os.getcwd()
 
 frm = tk.Tk()
 style = ttk.Style(frm)
 frm.geometry('350x200')
 frm.title("Assignment Manager")
+p1 = tk.PhotoImage(file = 'icon_image.png')
+frm.iconphoto(True, p1)
 
-frm.tk.call('source', theme_dir + r'\breeze-dark\breeze-dark.tcl')  # Put here the path of your theme file
+frm.tk.call('source', get_working_dir + r'\breeze-dark\breeze-dark.tcl')  # Put here the path of your theme file
 style.theme_use('breeze-dark')  # Theme files create a ttk theme, here you can put its name
 
 frm.columnconfigure(0, weight=2)
