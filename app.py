@@ -1,4 +1,4 @@
-import gspread
+import gspread, os
 import tkinter as tk
 from tkinter import ttk
 from google.auth import exceptions
@@ -6,14 +6,22 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
 
+theme_dir = os.getcwd()
+
 frm = tk.Tk()
 style = ttk.Style(frm)
-frm.geometry('315x200')
+frm.geometry('350x200')
 frm.title("Assignment Manager")
 
-frm.tk.call('source', 'D:/assignment-database-app/breeze-dark/breeze-dark.tcl')  # Put here the path of your theme file
+frm.tk.call('source', theme_dir + r'\breeze-dark\breeze-dark.tcl')  # Put here the path of your theme file
 style.theme_use('breeze-dark')  # Theme files create a ttk theme, here you can put its name
 
+frm.columnconfigure(0, weight=2)
+frm.columnconfigure(1, weight=2)
+frm.columnconfigure(2, weight=2)
+
+frm.rowconfigure(0, weight=1)
+frm.rowconfigure(1, weight=1)
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -72,13 +80,13 @@ def main():
     print("New row added successfully!")
     
 
-B = tk.Button(frm, text ="Add to Spreadsheet", command=lambda: [store_input(), main()])
-course_name = tk.Text(frm, height = 1,width = 10)
-hw_details = tk.Text(frm, height = 1,width = 10)
-due_date = tk.Text(frm, height = 1,width = 10)
+B = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
+course_name = tk.Text(frm, height = 1,width = 15)
+hw_details = tk.Text(frm, height = 1,width = 15)
+due_date = tk.Text(frm, height = 1,width = 15)
 
-B.pack(padx=10, pady=10, side='bottom')
-course_name.pack(padx=10, pady=10, side='left')
-hw_details.pack(padx=10, pady=10, side='left')
-due_date.pack(padx=10, pady=10, side='left')
+B.grid(row=1, column=1, pady=2)
+course_name.grid(row=0, column=0, padx=1)
+hw_details.grid(row=0, column=1, padx=1)
+due_date.grid(row=0, column=2, padx=1)
 frm.mainloop()
