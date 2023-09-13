@@ -76,7 +76,7 @@ def main():
     creds = authenticate()
 
     client = gspread.authorize(creds)
-    spreadsheet = client.open('test-sheet')
+    spreadsheet = client.open('Homework Manager')
     worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
 
     new_row = [course, hw, date]
