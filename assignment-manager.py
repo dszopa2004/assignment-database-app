@@ -53,6 +53,18 @@ def add_checkbox_validation(worksheet, row):
     )
     set_data_validation_for_cell_range(worksheet, target_range_of_cells, validation_rule)
 
+
+def create_placeholder(event, widget, placeholder_text):
+    if widget.get("1.0", "end-1c") == placeholder_text:
+        widget.delete("1.0", "end-1c")
+        widget.configure(fg="white")  # Change text color to black if it's a placeholder
+
+    if event == "leave" and not widget.get("1.0", "end-1c"):
+        widget.insert("1.0", placeholder_text)
+        widget.configure(fg="gray")  # Change text color to gray if the field is empty
+
+
+
 # Default authentication function from Google Sheet API
 def authenticate():
     creds = None
@@ -89,13 +101,35 @@ def main():
 ######### FUNCTIONS #########
 ######### FUNCTIONS #########
 
+######### WIDGETS #########
+######### WIDGETS #########
+placeholder_course_name = "Course Name"
+placeholder_hw_details = "Assignment"
+placeholder_due_date = "Due Date"
+
 btn_add = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
-course_name = tk.Text(frm, height = 1,width = 15)
-hw_details = tk.Text(frm, height = 1,width = 15)
-due_date = tk.Text(frm, height = 1,width = 15)
+course_name = tk.Text(frm, height = 1,width = 15, fg="gray")
+hw_details = tk.Text(frm, height = 1,width = 15, fg="gray")
+due_date = tk.Text(frm, height = 1,width = 15, fg="gray")
+
+# Course name placeholder
+course_name.insert("1.0", placeholder_course_name)
+course_name.bind("<FocusIn>", lambda event: create_placeholder("click", course_name, placeholder_course_name))
+course_name.bind("<FocusOut>", lambda event: create_placeholder("leave", course_name, placeholder_course_name))
+# Due date placeholder
+due_date.insert("1.0", placeholder_due_date)
+due_date.bind("<FocusIn>", lambda event: create_placeholder("click", due_date, placeholder_due_date))
+due_date.bind("<FocusOut>", lambda event: create_placeholder("leave", due_date, placeholder_due_date))
+# HW details placeholder
+hw_details.insert("1.0", placeholder_hw_details)
+hw_details.bind("<FocusIn>", lambda event: create_placeholder("click", hw_details, placeholder_hw_details))
+hw_details.bind("<FocusOut>", lambda event: create_placeholder("leave", hw_details, placeholder_hw_details))
 
 btn_add.grid(row=1, column=1, pady=2)
 course_name.grid(row=0, column=0, padx=1)
 hw_details.grid(row=0, column=1, padx=1)
 due_date.grid(row=0, column=2, padx=1)
 frm.mainloop()
+
+######### WIDGETS #########
+######### WIDGETS #########
