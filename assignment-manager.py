@@ -54,6 +54,7 @@ def add_checkbox_validation(worksheet, row):
     set_data_validation_for_cell_range(worksheet, target_range_of_cells, validation_rule)
 
 
+# This function creates placeholder text for the textfields
 def create_placeholder(event, widget, placeholder_text):
     if widget.get("1.0", "end-1c") == placeholder_text:
         widget.delete("1.0", "end-1c")
