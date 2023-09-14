@@ -65,7 +65,6 @@ def create_placeholder(event, widget, placeholder_text):
         widget.configure(fg="gray")  # Change text color to gray if the field is empty
 
 
-
 # Default authentication function from Google Sheet API
 def authenticate():
     creds = None
