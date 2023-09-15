@@ -5,6 +5,7 @@ from google.auth import exceptions
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from gspread_formatting import *
+from datetime import datetime
 
 get_working_dir = os.getcwd()
 
@@ -43,6 +44,7 @@ def store_input():
     hw = hw_details.get("1.0", "end-1c")
     date = due_date.get("1.0", "end-1c")
 
+
 # This function sorts the sheet
 # Sorts the due_date column by date
 # Sorts the checkboxes
@@ -54,7 +56,6 @@ def sort_sheet():
 
     # Sort the sheet 
     worksheet.sort((3, 'asc')) # Change the num to change columns
-    worksheet.sort((4, 'asc')) 
 
     print("Sheet sorted successfully!")
 
@@ -107,7 +108,7 @@ def main():
     worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
 
     new_row = [course, hw, date]
-    worksheet.append_row(new_row)
+    worksheet.append_row(new_row, value_input_option='USER_ENTERED')
 
     add_checkbox_validation(worksheet, new_row)
 
