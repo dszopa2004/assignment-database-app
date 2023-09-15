@@ -25,7 +25,7 @@ frm.columnconfigure(1, weight=2)
 frm.columnconfigure(2, weight=2)
 
 frm.rowconfigure(0, weight=1)
-frm.rowconfigure(1, weight=1)
+frm.rowconfigure(1, weight=0)
 
 SCOPES = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -42,6 +42,21 @@ def store_input():
     course = course_name.get("1.0", "end-1c")
     hw = hw_details.get("1.0", "end-1c")
     date = due_date.get("1.0", "end-1c")
+
+# This function sorts the sheet
+# Sorts the due_date column by date
+# Sorts the checkboxes
+def sort_sheet():
+    creds = authenticate()
+    client = gspread.authorize(creds)
+    spreadsheet = client.open('Homework Manager')
+    worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
+
+    # Sort the sheet 
+    worksheet.sort((3, 'asc')) # Change the num to change columns
+    worksheet.sort((4, 'asc')) 
+
+    print("Sheet sorted successfully!")
 
 
 # This function adds checkboxes to the 'D' row
@@ -108,6 +123,7 @@ placeholder_hw_details = "Assignment"
 placeholder_due_date = "Due Date"
 
 btn_add = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
+btn_sort = tk.Button(frm, text ="Sort Spreadsheet", relief='ridge', command=sort_sheet)
 course_name = tk.Text(frm, height = 1,width = 15, fg="gray")
 hw_details = tk.Text(frm, height = 1,width = 15, fg="gray")
 due_date = tk.Text(frm, height = 1,width = 15, fg="gray")
@@ -125,7 +141,8 @@ hw_details.insert("1.0", placeholder_hw_details)
 hw_details.bind("<FocusIn>", lambda event: create_placeholder("click", hw_details, placeholder_hw_details))
 hw_details.bind("<FocusOut>", lambda event: create_placeholder("leave", hw_details, placeholder_hw_details))
 
-btn_add.grid(row=1, column=1, pady=2)
+btn_add.grid(row=1, column=1, pady=3)
+btn_sort.grid(row=2, column=1, pady=3)
 course_name.grid(row=0, column=0, padx=1)
 hw_details.grid(row=0, column=1, padx=1)
 due_date.grid(row=0, column=2, padx=1)
