@@ -1,3 +1,4 @@
+import json
 import gspread, os
 import tkinter as tk
 from tkinter import ttk
@@ -36,6 +37,19 @@ SCOPES = [
 ######### FUNCTIONS #########
 ######### FUNCTIONS #########
 
+# Retrieves the name of the sheet from the JSON
+def get_sheet():
+    f = open('info.json')
+    data = json.load(f)
+    name = data["name"]
+    f.close()
+
+    return name
+
+# Get the name of the sheet before the sheet name is used
+sheet_name = get_sheet()
+
+
 # This function stores the data that the user inputs
 # into variables, which then gets pushed to the spreadsheet
 def store_input():
@@ -47,11 +61,10 @@ def store_input():
 
 # This function sorts the sheet
 # Sorts the due_date column by date
-# Sorts the checkboxes
 def sort_sheet():
     creds = authenticate()
     client = gspread.authorize(creds)
-    spreadsheet = client.open('Homework Manager')
+    spreadsheet = client.open(sheet_name)
     worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
 
     # Sort the sheet 
@@ -104,7 +117,7 @@ def main():
     creds = authenticate()
 
     client = gspread.authorize(creds)
-    spreadsheet = client.open('Homework Manager')
+    spreadsheet = client.open(sheet_name)
     worksheet = spreadsheet.get_worksheet(0)  # 0 represents the first sheet
 
     new_row = [course, hw, date]
@@ -124,7 +137,7 @@ placeholder_hw_details = "Assignment"
 placeholder_due_date = "Due Date"
 
 btn_add = tk.Button(frm, text ="Add to Spreadsheet", relief='ridge', command=lambda: [store_input(), main()])
-btn_sort = tk.Button(frm, text ="Sort Spreadsheet", relief='ridge', command=sort_sheet)
+btn_sort = tk.Button(frm, text ="Sort by Date", relief='ridge', command=sort_sheet)
 course_name = tk.Text(frm, height = 1,width = 15, fg="gray")
 hw_details = tk.Text(frm, height = 1,width = 15, fg="gray")
 due_date = tk.Text(frm, height = 1,width = 15, fg="gray")
