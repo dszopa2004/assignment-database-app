@@ -19,7 +19,7 @@ p1 = tk.PhotoImage(file = 'icon_image.png')
 frm.iconphoto(True, p1)
 
 # Path to theme, including the images
-frm.tk.call('source', get_working_dir + r'\breeze-dark\breeze-dark.tcl')  
+frm.tk.call('source', get_working_dir + r'/breeze-dark/breeze-dark.tcl')  
 style.theme_use('breeze-dark')  # Theme name
 
 frm.columnconfigure(0, weight=2)
