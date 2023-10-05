@@ -39,7 +39,7 @@ SCOPES = [
 
 # Retrieves the name of the sheet from the JSON
 def get_sheet():
-    f = open('info.json')
+    f = open('config.json')
     data = json.load(f)
     name = data["name"]
     f.close()
